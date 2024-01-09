@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pyoneer/utils/lesson_component.dart';
@@ -116,43 +118,62 @@ class _Lesson1ScreenState extends State<Lesson1Screen>
                           height: 25,
                         ),
                         GestureDetector(
-  onTap: () {
-    showDialog(
-      context: context,
-      barrierColor: Colors.transparent,
-      builder: (BuildContext context) {
-        var screenSize = MediaQuery.of(context).size;
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              barrierColor: Colors.transparent,
+                              builder: (BuildContext context) {
+                                var screenSize = MediaQuery.of(context).size;
 
-        var width = screenSize.width * 0.8;
-        var height = screenSize.height * 0.3;
+                                var width = screenSize.width;
+                                var height = screenSize.height;
 
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: SizedBox(
-              width: width,
-              height: height,
-              child: PhotoView(
-                imageProvider: const AssetImage("assets/images/lesson1/lessonImage1.jpg"),
-                minScale: PhotoViewComputedScale.contained * 1,
-                maxScale: PhotoViewComputedScale.covered * 2,
-                initialScale: PhotoViewComputedScale.contained,
-                backgroundDecoration: const BoxDecoration(
-                  color: Colors.transparent,
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  },
-  child: Image.asset("assets/images/lesson1/lessonImage1.jpg"),
-),
+                                return BackdropFilter(
+                                  filter:
+                                      ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                  child: Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: SizedBox(
+                                        width: width,
+                                        height: height,
+                                        child: PhotoView(
+                                          imageProvider: const AssetImage(
+                                            "assets/images/lesson1/lessonImage1.jpg",
+                                          ),
+                                          minScale:
+                                              PhotoViewComputedScale.contained *
+                                                  0.5,
+                                          maxScale:
+                                              PhotoViewComputedScale.covered *
+                                                  4.0,
+                                          initialScale:
+                                              PhotoViewComputedScale.contained,
+                                          backgroundDecoration:
+                                              const BoxDecoration(
+                                            color: Colors.transparent,
+                                          ),
+                                          basePosition: Alignment.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Image.asset(
+                            "assets/images/lesson1/lessonImage1.jpg",
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return const Text('Image not found');
+                            },
+                          ),
+                        ),
                         const SizedBox(height: 25),
                       ],
                     ),

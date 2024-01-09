@@ -10,8 +10,6 @@ class ContentScreen extends StatefulWidget {
   State<ContentScreen> createState() => _ContentScreenState();
 }
 
-/// This class represents the state of the [ContentScreen] widget.
-/// It extends the [State] class and overrides the [build] method to build the UI.
 class _ContentScreenState extends State<ContentScreen> {
   @override
   Widget build(BuildContext context) {
